@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
@@ -23,6 +24,7 @@ import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,6 +38,7 @@ import coil.compose.AsyncImage
 import com.sd.products.R
 import com.sd.products.presentation.ui.Routes
 import com.sd.products.presentation.viewmodel.MainViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,6 +48,9 @@ fun MainScreen(
 ) {
 
     val modelProducts by vm.dataModel.observeAsState()
+
+    val listState = rememberLazyGridState()
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -98,7 +104,8 @@ fun MainScreen(
                         .fillMaxSize(),
                     columns = GridCells.Fixed(2),
                     contentPadding = PaddingValues(4.dp),
-                    horizontalArrangement = Arrangement.Center
+                    horizontalArrangement = Arrangement.Center,
+                    state = listState
                 ) {
                     itemsIndexed(modelProducts?.products ?: emptyList()) { _, item ->
                         Card(modifier = Modifier
@@ -134,6 +141,9 @@ fun MainScreen(
                             }
                         }
                     }
+                }
+                coroutineScope.launch {
+                    listState.scrollToItem(index = if (vm.currentId % 2 == 0 && vm.currentId != 0) (vm.currentId - 1) else vm.currentId)
                 }
             }
         }

@@ -7,11 +7,12 @@ data class Product(
     val discountPercentage: Double = NULL_DOUBLE,
     val id: Int = NULL_INT,
     val images: List<String> = emptyList(),
-    val price: Int = NULL_INT,
+    val price: Double = NULL_DOUBLE,
     val rating: Double = NULL_DOUBLE,
     val stock: Int = NULL_INT,
     val thumbnail: String = "",
-    val title: String = ""
+    val title: String = "",
+    val reviews: List<Review> = emptyList()
 ) {
     companion object {
         const val NULL_INT = 0

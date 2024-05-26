@@ -2,7 +2,7 @@
     <string name="app_name">Products</string>
     <string name="try_later">Что-то пошло не так...Попробуйте позже</string>
     <string name="retry">Retry</string>
-    <string name="price"> Цена: %1$d</string>
+    <string name="price"> Цена: %1$s</string>
     <string name="discount">Скидка: %1$s </string>
     <string name="rating">Рейтинг: %1$s</string>
     <string name="category">Категория: %1$s</string>
@@ -10,4 +10,6 @@
     <string name="desc">"Описание: %1$s"</string>
     <string name="stock">"Осталось на складе: %1$d шт"</string>
     <string name="catalog">Каталог</string>
+    <string name="reviews1">Отзывы:</string>
+    <string name="reviews2">Отзывы</string>
 </resources>
