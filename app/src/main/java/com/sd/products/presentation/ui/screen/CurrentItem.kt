@@ -60,6 +60,8 @@ fun CurrentItem(
         mutableStateOf(false)
     }
 
+    val stateScroll = rememberScrollState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -117,7 +119,7 @@ fun CurrentItem(
             }
 
             else -> {
-                Column() {
+                Column {
                     if (modelCurrent?.product?.images?.size == 1) {
                         AsyncImage(
                             model = modelCurrent?.product?.images!!.firstOrNull(),
@@ -146,64 +148,8 @@ fun CurrentItem(
                         }
                     }
                     Column(
-                        modifier = Modifier.verticalScroll(rememberScrollState())
+                        modifier = Modifier.verticalScroll(stateScroll)
                     ) {
-                        Text(
-                            text = stringResource(
-                                R.string.price,
-                                modelCurrent?.product?.price ?: "0.0"
-                            ),
-                            modifier = Modifier.padding(8.dp),
-                            color = Color.White
-                        )
-                        Text(
-                            text = stringResource(
-                                R.string.discount,
-                                modelCurrent?.product?.discountPercentage ?: "0.0"
-                            ),
-                            modifier = Modifier.padding(8.dp),
-                            color = Color.White
-                        )
-                        Text(
-                            text = stringResource(
-                                R.string.rating,
-                                modelCurrent?.product?.rating ?: "0.0"
-                            ),
-                            modifier = Modifier.padding(8.dp),
-                            color = Color.White
-                        )
-                        Text(
-                            text = stringResource(
-                                R.string.category,
-                                modelCurrent?.product?.category ?: ""
-                            ),
-                            modifier = Modifier.padding(8.dp),
-                            color = Color.White
-                        )
-                        Text(
-                            text = stringResource(
-                                R.string.brand,
-                                modelCurrent?.product?.brand ?: ""
-                            ),
-                            modifier = Modifier.padding(8.dp),
-                            color = Color.White
-                        )
-                        Text(
-                            text = stringResource(
-                                R.string.desc,
-                                modelCurrent?.product?.description ?: ""
-                            ),
-                            modifier = Modifier.padding(8.dp),
-                            color = Color.White
-                        )
-                        Text(
-                            text = stringResource(
-                                R.string.stock,
-                                modelCurrent?.product?.stock ?: 0
-                            ),
-                            modifier = Modifier.padding(8.dp),
-                            color = Color.White
-                        )
                         Button(
                             onClick = {
                                 showReviews.value = !showReviews.value
@@ -238,7 +184,7 @@ fun CurrentItem(
                                             .fillMaxWidth()
                                             .padding(start = 12.dp, end = 12.dp)
                                     ) {
-                                        Row() {
+                                        Row {
                                             for (i in 1..review.rating) {
                                                 Image(
                                                     painter = painterResource(id = R.drawable.star_12),
@@ -269,6 +215,64 @@ fun CurrentItem(
                                 }
                             }
                         }
+                        Text(
+                            text = stringResource(
+                                R.string.price,
+                                modelCurrent?.product?.price ?: "0.0"
+                            ),
+                            modifier = Modifier.padding(8.dp),
+                            color = Color.White
+                        )
+                        Text(
+                            text = stringResource(
+                                R.string.discount,
+                                modelCurrent?.product?.discountPercentage ?: "0.0"
+                            ),
+                            modifier = Modifier.padding(8.dp),
+                            color = Color.White
+                        )
+                        Text(
+                            text = stringResource(
+                                R.string.rating,
+                                modelCurrent?.product?.rating ?: "0.0"
+                            ),
+                            modifier = Modifier.padding(8.dp),
+                            color = Color.White
+                        )
+                        Text(
+                            text = stringResource(
+                                R.string.category,
+                                modelCurrent?.product?.category ?: ""
+                            ),
+                            modifier = Modifier.padding(8.dp),
+                            color = Color.White
+                        )
+                        if (!modelCurrent?.product?.brand.isNullOrEmpty()) {
+                            Text(
+                                text = stringResource(
+                                    R.string.brand,
+                                    modelCurrent?.product?.brand ?: ""
+                                ),
+                                modifier = Modifier.padding(8.dp),
+                                color = Color.White
+                            )
+                        }
+                        Text(
+                            text = stringResource(
+                                R.string.desc,
+                                modelCurrent?.product?.description ?: ""
+                            ),
+                            modifier = Modifier.padding(8.dp),
+                            color = Color.White
+                        )
+                        Text(
+                            text = stringResource(
+                                R.string.stock,
+                                modelCurrent?.product?.stock ?: 0
+                            ),
+                            modifier = Modifier.padding(8.dp),
+                            color = Color.White
+                        )
                     }
                 }
             }
